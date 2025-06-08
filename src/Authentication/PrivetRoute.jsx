@@ -1,7 +1,7 @@
 import React, { use } from 'react';
 import { AuthContext } from './AuthProvider';
 import { Navigate } from 'react-router';
-import Loader from '../Components/Loader';
+import Loader from '../Component/Loader';
 
 const PrivetRoute = ({children}) => {
 

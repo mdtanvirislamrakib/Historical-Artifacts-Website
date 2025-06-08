@@ -15,4 +15,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+console.log("API Key:", import.meta.env.VITE_apiKey);
 export const auth = getAuth(app)
