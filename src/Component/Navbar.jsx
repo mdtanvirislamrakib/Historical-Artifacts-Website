@@ -334,7 +334,7 @@ const Navbar = () => {
                       onClick={() => {
                         setDropdownOpen(false);
                         closeMenu();
-                        logout && logout();
+                        logOut && logOut();
                       }}
                       className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-all"
                     >

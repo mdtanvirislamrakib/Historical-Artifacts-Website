@@ -95,7 +95,7 @@ const SignUp = () => {
           setUser(user)
           Swal.fire({
             position: "center",
-            icon: "success",
+            icon: "error",
             title: `${error.message}`,
             showConfirmButton: false,
             timer: 1500
@@ -106,7 +106,7 @@ const SignUp = () => {
       .catch(error => {
         Swal.fire({
           position: "center",
-          icon: "success",
+          icon: "error",
           title: `${error.message}`,
           showConfirmButton: false,
           timer: 1500
@@ -129,7 +129,7 @@ const SignUp = () => {
       .catch(error => {
         Swal.fire({
           position: "center",
-          icon: "success",
+          icon: "error",
           title: `${error.message}`,
           showConfirmButton: false,
           timer: 1500

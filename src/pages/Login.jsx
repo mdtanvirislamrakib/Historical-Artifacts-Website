@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import Lottie from 'lottie-react';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FcGoogle } from "react-icons/fc";
 import loginLottie from "../assets/loginLottie.json";
+import { AuthContext } from '../Authentication/AuthProvider';
+import Swal from 'sweetalert2';
 
 // Utility to create a gentle glass reflection
 const GlassReflection = () => (
@@ -13,28 +15,69 @@ const GlassReflection = () => (
   </div>
 );
 
+
 const Login = () => {
+
+  const { login, googleLogin } = use(AuthContext)
+  const navigate = useNavigate();
+
+
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    rememberMe: false
-  });
 
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     // Handle login logic here
-    console.log('Login attempt:', formData);
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    login(email, password)
+      .then(result => {
+        navigate("/");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${result?.user?.displayName} Successfully Login!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(error => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${error.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
   };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(result => {
+        navigate("/")
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${result?.user?.displayName} Successfully Login!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(error => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `${error.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      })
+  }
+
+
 
   return (
     <div
@@ -74,7 +117,7 @@ const Login = () => {
               <p className="text-gray-400 text-sm">Sign in to access <span className="text-amber-400 font-semibold">HistoriVault</span></p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6">
               {/* Email Field */}
               <div>
                 <label htmlFor="email" className="block text-xs font-semibold text-gray-300 mb-1 ml-1">Email Address</label>
@@ -87,8 +130,6 @@ const Login = () => {
                     id="email"
                     name="email"
                     autoComplete="username"
-                    value={formData.email}
-                    onChange={handleInputChange}
                     className="w-full pl-11 pr-4 py-3 bg-white/10 border border-white/15 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400/70 transition-all duration-300 text-sm shadow-sm"
                     placeholder="your@email.com"
                     required
@@ -108,8 +149,6 @@ const Login = () => {
                     id="password"
                     name="password"
                     autoComplete="current-password"
-                    value={formData.password}
-                    onChange={handleInputChange}
                     className="w-full pl-11 pr-12 py-3 bg-white/10 border border-white/15 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40 focus:border-amber-400/70 transition-all duration-300 text-sm shadow-sm"
                     placeholder="••••••••"
                     required
@@ -132,8 +171,6 @@ const Login = () => {
                     id="rememberMe"
                     name="rememberMe"
                     type="checkbox"
-                    checked={formData.rememberMe}
-                    onChange={handleInputChange}
                     className="accent-amber-500 h-4 w-4 rounded border-gray-700 bg-white/10"
                   />
                   Remember me
@@ -161,6 +198,7 @@ const Login = () => {
 
             {/* Social Login Buttons */}
             <button
+              onClick={handleGoogleLogin}
               className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white/10 border border-white/15 text-white hover:bg-white/15 transition-all duration-200 shadow focus:outline-none focus:ring-2 focus:ring-amber-400/20"
             >
               <FcGoogle size={22} />
