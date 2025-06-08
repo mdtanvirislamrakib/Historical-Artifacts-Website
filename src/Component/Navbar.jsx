@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router';
 import { Menu, X, Scroll, Search, User, Clock, Map, BookOpen, MessageSquare } from 'lucide-react';
 import navLogo from "../assets/logo.png";
@@ -13,21 +13,7 @@ const navigationLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -39,19 +25,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 z-40 w-full transition-all duration-500 ${scrolled
-          ? 'bg-black/80 backdrop-blur-xl shadow-2xl border-b border-white/10'
-          : 'bg-black/40 backdrop-blur-lg border-b border-white/5'
+      className={`fixed top-0 z-40 w-full transition-all duration-500 'bg-black/80 backdrop-blur-xl shadow-2xl border-b border-white/10'
         }`}
       style={{
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        background: scrolled
-          ? 'linear-gradient(135deg, rgba(20,20,20,0.93) 0%, rgba(30,30,30,0.98) 50%, rgba(15,15,15,0.95) 100%)'
-          : 'linear-gradient(135deg, rgba(30,30,30,0.55) 0%, rgba(20,20,20,0.7) 50%, rgba(10,10,10,0.5) 100%)',
-        boxShadow: scrolled
-          ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
-          : '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
+        background:  'linear-gradient(135deg, rgba(20,20,20,0.93) 0%, rgba(30,30,30,0.98) 50%, rgba(15,15,15,0.95) 100%)',
+        boxShadow:'0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
       }}
     >
       {/* Glass reflection effect */}
@@ -106,20 +86,7 @@ const Navbar = () => {
 
           {/* Desktop Search and Login */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-300" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search artifacts..."
-                className="w-40 lg:w-56 pl-10 pr-4 py-2 text-sm bg-white/10 border border-white/20 rounded-full text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 transition-all duration-300 backdrop-blur-sm"
-                style={{
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)'
-                }}
-              />
-            </div>
+            
             {/* Changed to NavLink for regular navigation */}
             <NavLink
               to="/login"
