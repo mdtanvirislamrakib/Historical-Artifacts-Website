@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-react';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { Link } from 'react-router';
 import { FcGoogle } from "react-icons/fc";
@@ -21,14 +21,6 @@ const Login = () => {
     rememberMe: false
   });
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loginLottie,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -46,7 +38,7 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden mt-20"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden py-20"
       style={{
         background: 'linear-gradient(135deg, #18181b 0%, #23232b 50%, #18181b 100%)',
       }}
@@ -72,7 +64,11 @@ const Login = () => {
             {/* Header & Lottie */}
             <div className="flex flex-col items-center mb-6">
               <div className="w-28 h-28 mb-2 drop-shadow-xl">
-                <Lottie options={defaultOptions} />
+                <Lottie
+                  animationData={loginLottie}
+                  loop={true}
+                  autoplay={true}
+                />
               </div>
               <h1 className="text-3xl font-bold text-white mb-1 tracking-wide">Welcome Back</h1>
               <p className="text-gray-400 text-sm">Sign in to access <span className="text-amber-400 font-semibold">HistoriVault</span></p>

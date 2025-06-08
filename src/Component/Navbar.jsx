@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router';
-import { Menu, X, Scroll, Search, User, Clock, Map, BookOpen, MessageSquare } from 'lucide-react';
+import { Menu, X, Scroll, Search, User, Clock, MessageSquare, LogOut, Heart, Archive } from 'lucide-react';
 import navLogo from "../assets/logo.png";
+import { AuthContext } from '../Authentication/AuthProvider';
+import Swal from 'sweetalert2';
 
 const navigationLinks = [
   { name: "Home", to: "/", icon: <Clock className="h-4 w-4" /> },
@@ -11,27 +13,70 @@ const navigationLinks = [
   { name: "Contact", to: "/contact", icon: <MessageSquare className="h-4 w-4" /> },
 ];
 
+const userDropdownLinks = [
+  {
+    name: "Liked Artifacts",
+    to: "/liked-artifacts",
+    icon: <Heart className="h-4 w-4" />,
+  },
+  {
+    name: "My Artifacts",
+    to: "/my-artifacts",
+    icon: <Archive className="h-4 w-4" />,
+  },
+];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  const dropdownRef = useRef(null);
 
+  // For closing dropdown on outside click
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    function handleClick(e) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    window.addEventListener("mousedown", handleClick);
+    return () => window.removeEventListener("mousedown", handleClick);
+  }, [dropdownOpen]);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Logout Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.message,
+        });
+      });
   };
 
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
+
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <nav
-      className={`fixed top-0 z-40 w-full transition-all duration-500 'bg-black/80 backdrop-blur-xl shadow-2xl border-b border-white/10'
-        }`}
+      className={`fixed top-0 z-40 w-full transition-all duration-500 bg-black/80 backdrop-blur-xl shadow-2xl border-b border-white/10`}
       style={{
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        background:  'linear-gradient(135deg, rgba(20,20,20,0.93) 0%, rgba(30,30,30,0.98) 50%, rgba(15,15,15,0.95) 100%)',
-        boxShadow:'0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
+        background: 'linear-gradient(135deg, rgba(20,20,20,0.93) 0%, rgba(30,30,30,0.98) 50%, rgba(15,15,15,0.95) 100%)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
       }}
     >
       {/* Glass reflection effect */}
@@ -51,7 +96,6 @@ const Navbar = () => {
               </div>
             </NavLink>
           </div>
-
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-1 bg-white/5 rounded-full px-2 py-1 backdrop-blur-sm border border-white/10">
@@ -84,17 +128,70 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Search and Login */}
+          {/* Desktop Search and Login/User */}
           <div className="hidden md:flex items-center space-x-4">
-            
-            {/* Changed to NavLink for regular navigation */}
-            <NavLink
-              to="/login"
-              className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500/90 to-amber-600/90 text-black font-medium text-sm hover:from-amber-400/90 hover:to-amber-500/90 transition-all duration-300 shadow-lg shadow-amber-600/30 hover:shadow-amber-500/40 backdrop-blur-sm border border-amber-300/20 hover:scale-105"
-            >
-              <User className="h-4 w-4" />
-              <span>Login</span>
-            </NavLink>
+            {user ? (
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen((open) => !open)}
+                  className="flex items-center space-x-2 px-1 py-1 rounded-full bg-white/10 border border-amber-400/20 hover:bg-amber-400/10 focus:outline-none transition-all"
+                  tabIndex={0}
+                >
+                  <img
+                    src={user.photoURL || "/placeholder.svg"}
+                    alt={user.displayName || "User"}
+                    className="h-10 w-10 rounded-full object-cover border-2 border-amber-400/40 shadow"
+                  />
+                </button>
+                {/* Dropdown */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-64 bg-black/90 rounded-2xl shadow-xl border border-white/10 py-4 px-4 z-50 backdrop-blur-xl animate-fadeIn">
+                    <div className="flex items-center mb-4 gap-3">
+                      <img
+                        src={user.photoURL || "/placeholder.svg"}
+                        alt={user.displayName || "User"}
+                        className="h-12 w-12 rounded-full object-cover border border-amber-400/40"
+                      />
+                      <div>
+                        <div className="font-bold text-white text-base truncate">{user.displayName || "User"}</div>
+                        <div className="text-xs text-amber-300 truncate">{user.email}</div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1 mb-3">
+                      {userDropdownLinks.map((link) => (
+                        <NavLink
+                          key={link.name}
+                          to={link.to}
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-200 hover:bg-amber-400/20 hover:text-amber-400 transition-all"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          {link.icon}
+                          {link.name}
+                        </NavLink>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        handleLogOut();
+                      }}
+                      className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-all"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <NavLink
+                to="/login"
+                className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-500/90 to-amber-600/90 text-black font-medium text-sm hover:from-amber-400/90 hover:to-amber-500/90 transition-all duration-300 shadow-lg shadow-amber-600/30 hover:shadow-amber-500/40 backdrop-blur-sm border border-amber-300/20 hover:scale-105"
+              >
+                <User className="h-4 w-4" />
+                <span>Login</span>
+              </NavLink>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -165,8 +262,8 @@ const Navbar = () => {
                 {({ isActive }) => (
                   <>
                     <span className={`p-2.5 rounded-lg backdrop-blur-sm border ${isActive
-                        ? 'bg-amber-500/20 border-amber-400/30'
-                        : 'bg-white/10 border-white/10'
+                      ? 'bg-amber-500/20 border-amber-400/30'
+                      : 'bg-white/10 border-white/10'
                       }`}>
                       {link.icon}
                     </span>
@@ -180,17 +277,74 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Login Button */}
+          {/* Mobile User/Login */}
           <div className="px-3 py-3 border-t border-white/10 mt-2 relative">
-            {/* Changed to NavLink for regular navigation */}
-            <NavLink
-              to="/login"
-              className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500/90 to-amber-600/90 text-black font-medium hover:from-amber-400/90 hover:to-amber-500/90 transition-all duration-300 shadow-lg shadow-amber-600/30 backdrop-blur-sm border border-amber-300/20"
-              onClick={closeMenu}
-            >
-              <User className="h-5 w-5" />
-              <span>Login to Your Account</span>
-            </NavLink>
+            {!user ? (
+              <NavLink
+                to="/login"
+                className="flex items-center justify-center space-x-2 w-full px-4 py-3.5 rounded-xl bg-gradient-to-r from-amber-500/90 to-amber-600/90 text-black font-medium hover:from-amber-400/90 hover:to-amber-500/90 transition-all duration-300 shadow-lg shadow-amber-600/30 backdrop-blur-sm border border-amber-300/20"
+                onClick={closeMenu}
+              >
+                <User className="h-5 w-5" />
+                <span>Login to Your Account</span>
+              </NavLink>
+            ) : (
+              <div className="relative w-full">
+                <button
+                  className="flex items-center gap-3 w-full px-4 py-3.5 rounded-xl bg-white/10 border border-amber-400/20 hover:bg-amber-400/10 transition-all"
+                  onClick={() => setDropdownOpen((open) => !open)}
+                >
+                  <img
+                    src={user.photoURL || "/placeholder.svg"}
+                    alt={user.displayName || "User"}
+                    className="h-9 w-9 rounded-full object-cover border border-amber-400/40"
+                  />
+                  <span className="text-white font-medium">{user.displayName || "User"}</span>
+                </button>
+                {dropdownOpen && (
+                  <div className="absolute left-0 right-0 mt-3 w-full bg-black/90 rounded-2xl shadow-xl border border-white/10 py-4 px-4 z-50 backdrop-blur-xl animate-fadeIn">
+                    <div className="flex items-center mb-4 gap-3">
+                      <img
+                        src={user.photoURL || "/placeholder.svg"}
+                        alt={user.displayName || "User"}
+                        className="h-12 w-12 rounded-full object-cover border border-amber-400/40"
+                      />
+                      <div>
+                        <div className="font-bold text-white text-base truncate">{user.displayName || "User"}</div>
+                        <div className="text-xs text-amber-300 truncate">{user.email}</div>
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-1 mb-3">
+                      {userDropdownLinks.map((link) => (
+                        <NavLink
+                          key={link.name}
+                          to={link.to}
+                          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-200 hover:bg-amber-400/20 hover:text-amber-400 transition-all"
+                          onClick={() => {
+                            setDropdownOpen(false);
+                            closeMenu();
+                          }}
+                        >
+                          {link.icon}
+                          {link.name}
+                        </NavLink>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => {
+                        setDropdownOpen(false);
+                        closeMenu();
+                        logout && logout();
+                      }}
+                      className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-red-500/10 transition-all"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

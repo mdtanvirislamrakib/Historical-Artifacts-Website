@@ -1,6 +1,7 @@
 import React from "react";
-import { Mail, MapPin, Twitter, Facebook, Instagram, Linkedin, Github } from "lucide-react";
+import { Mail, MapPin, Twitter, Facebook, Instagram, Linkedin, Github, } from "lucide-react";
 import logo from "../assets/logo.png"
+import { Link, NavLink } from "react-router";
 
 const socialLinks = [
   {
@@ -40,7 +41,7 @@ const navLinks = [
 
 const Footer = () => {
   return (
-    <footer className="relative bg-black/80 backdrop-blur-xl border-t border-white/10 mt-20 text-gray-300">
+    <footer className="relative bg-black/80 backdrop-blur-xl border-t border-white/10 text-gray-300">
       {/* Glass reflection effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-20 pointer-events-none" />
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 relative z-10">
@@ -77,13 +78,13 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4 text-amber-400">Quick Links</h3>
             <nav className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <a
+                <NavLink
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   className="hover:text-amber-400 transition-colors duration-200 text-sm"
                 >
                   {link.name}
-                </a>
+                </NavLink>
               ))}
             </nav>
           </div>
@@ -93,16 +94,16 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-4 text-amber-400">Stay Connected</h3>
             <div className="flex gap-4 mb-4">
               {socialLinks.map((social) => (
-                <a
+                <Link
                   key={social.name}
-                  href={social.url}
+                  to={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
                   className="p-2 rounded-full hover:bg-amber-400/20 hover:text-amber-400 transition-colors duration-200 border border-transparent hover:border-amber-400/40"
                 >
                   {social.icon}
-                </a>
+                </Link>
               ))}
             </div>
             <form className="flex items-center gap-2 mb-2">

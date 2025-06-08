@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import Lottie from "react-lottie";
+import React, { use, useState } from "react";
+import Lottie from "lottie-react";
 import { User, Mail, Lock, Image as ImageIcon, Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import signUpLottie from "../assets/signup.json";
+import { AuthContext } from "../Authentication/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const GlassReflection = () => (
   <div className="absolute inset-0 pointer-events-none">
@@ -12,6 +15,11 @@ const GlassReflection = () => (
 );
 
 const SignUp = () => {
+
+  const { SignUpUser, googleLogin, setUser, updateUser } = use(AuthContext)
+  const navigate = useNavigate();
+
+
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -20,14 +28,6 @@ const SignUp = () => {
     password: "",
   });
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: signUpLottie,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,11 +41,105 @@ const SignUp = () => {
     e.preventDefault();
     // Add your signup logic here
     console.log("Signup attempt:", formData);
+
+    const form = e.target;
+    const name = form.username.value;
+    const email = form.email.value;
+    const photoURL = form.photoURL.value;
+    const password = form.password.value;
+
+    const lengthValidation = /[A-Za-z\d@$!%*?&]{6,}/;
+    const smallLetterValidation = /(?=.*[a-z])/
+    const capitalLetterValidation = /(?=.*[A-Z])/
+    const digitValidation = /(?=.*\d)/;
+    if (lengthValidation.test(password) === false) {
+      return Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password Must be 6 characters",
+      });
+    } else if (smallLetterValidation.test(password) === false) {
+      return Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must have a small letter!",
+      });
+    } else if (capitalLetterValidation.test(password) === false) {
+      return Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must have an uppercase letter!",
+      });
+    } else if (digitValidation.test(password) === false) {
+      return Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must have a number!",
+      });
+    }
+
+    SignUpUser(email, password)
+      .then(result => {
+        const user = result.user;
+        updateUser({ displayName: name, photoURL: photoURL }).then(() => {
+          setUser({ ...user, displayName: name, photoURL: photoURL })
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Successfully Login!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate("/")
+        }).catch(error => {
+          setUser(user)
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `${error.message}`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+
+      })
+      .catch(error => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${error.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+
+      })
   };
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(result => {
+        navigate("/");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${result.user.displayName} Successfully SignUp!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+      .catch(error => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `${error.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+      })
+  }
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center relative overflow-hidden mt-20"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden py-20"
       style={{
         background:
           "linear-gradient(135deg, #18181b 0%, #23232b 50%, #18181b 100%)",
@@ -73,8 +167,13 @@ const SignUp = () => {
             {/* Header & Lottie */}
             <div className="flex flex-col items-center mb-6">
               <div className="w-28 h-28 mb-2 drop-shadow-xl">
-                <Lottie options={defaultOptions} />
+                <Lottie
+                  animationData={signUpLottie}
+                  loop={true}
+                  autoplay={true}
+                />
               </div>
+
               <h1 className="text-3xl font-bold text-white mb-1 tracking-wide">
                 Create Account
               </h1>
@@ -220,6 +319,7 @@ const SignUp = () => {
             {/* Social Login Buttons */}
             <button
               type="button"
+              onClick={handleGoogleLogin}
               className="w-full flex items-center justify-center gap-3 py-3 rounded-xl bg-white/10 border border-white/15 text-white hover:bg-white/15 transition-all duration-200 shadow focus:outline-none focus:ring-2 focus:ring-amber-400/20"
             >
               <FcGoogle size={22} />

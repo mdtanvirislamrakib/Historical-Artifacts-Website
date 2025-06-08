@@ -10,7 +10,9 @@ const RootLayout = () => {
                 <Navbar></Navbar>
             </header>
 
-            <main className='min-h-screen'>
+            <main className='min-h-screen' style={{
+        background: 'linear-gradient(135deg, #18181b 0%, #23232b 50%, #18181b 100%)',
+      }}>
                 <Outlet></Outlet>
             </main>
 
