@@ -9,6 +9,7 @@ import SignUp from "../pages/SignUp";
 import PrivetRoute from "../Authentication/PrivetRoute";
 import ContactSupport from "../pages/ContactSupport";
 import BrowseDocumentation from "../pages/BrowseDocumentation";
+import AboutSection from "../pages/About";
 
 
 
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/about",
-        Component: Login,
+        Component: AboutSection,
       },
       {
         path: "/signup",
