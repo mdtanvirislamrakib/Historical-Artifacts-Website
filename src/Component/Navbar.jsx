@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect, use } from 'react';
 import { NavLink } from 'react-router';
-import { Menu, X, Scroll, Search, User, Clock, MessageSquare, LogOut, Heart, Archive } from 'lucide-react';
+import { Menu, X, Scroll, Search, User, Clock, Info, LogOut, Heart, Archive } from 'lucide-react';
 import navLogo from "../assets/logo.png";
 import { AuthContext } from '../Authentication/AuthProvider';
 import Swal from 'sweetalert2';
@@ -8,11 +8,10 @@ import Swal from 'sweetalert2';
 const navigationLinks = [
   { name: "Home", to: "/", icon: <Clock className="h-4 w-4" /> },
   { name: "All Artifacts", to: "/artifacts", icon: <Scroll className="h-4 w-4" /> },
+  { name: "About", to: "/about", icon: <Info className="h-4 w-4" /> },
   // { name: "Collections", to: "/collections", icon: <BookOpen className="h-4 w-4" /> },
   // { name: "Exhibitions", to: "/exhibitions", icon: <Map className="h-4 w-4" /> },
-  { name: "Contact", to: "/contact", icon: <MessageSquare className="h-4 w-4" /> },
 ];
-
 const userDropdownLinks = [
   {
     name: "Liked Artifacts",
@@ -29,7 +28,7 @@ const userDropdownLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = use(AuthContext);
   const dropdownRef = useRef(null);
 
   // For closing dropdown on outside click
@@ -98,7 +97,7 @@ const Navbar = () => {
           </div>
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-1 bg-white/5 rounded-full px-2 py-1 backdrop-blur-sm border border-white/10">
+            <div className=" flex items-baseline space-x-1 bg-white/5 rounded-full px-2 py-1 backdrop-blur-sm border border-white/10">
               {navigationLinks.map((link) => (
                 <NavLink
                   key={link.name}
