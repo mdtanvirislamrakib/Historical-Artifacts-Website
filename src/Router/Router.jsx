@@ -10,6 +10,7 @@ import PrivetRoute from "../Authentication/PrivetRoute";
 import ContactSupport from "../pages/ContactSupport";
 import BrowseDocumentation from "../pages/BrowseDocumentation";
 import AboutSection from "../pages/About";
+import AddArtifact from "../pages/AddArtifact";
 
 
 
@@ -30,6 +31,12 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         Component: AboutSection,
+      },
+      {
+        path: "/add-artifacts",
+        element: <PrivetRoute>
+          <AddArtifact></AddArtifact>
+        </PrivetRoute>
       },
       {
         path: "/signup",

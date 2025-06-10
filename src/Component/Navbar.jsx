@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 const navigationLinks = [
   { name: "Home", to: "/", icon: <Clock className="h-4 w-4" /> },
-  { name: "All Artifacts", to: "/artifacts", icon: <Scroll className="h-4 w-4" /> },
+  { name: "Add Artifacts", to: "/add-artifacts", icon: <Scroll className="h-4 w-4" /> },
   { name: "About", to: "/about", icon: <Info className="h-4 w-4" /> },
   // { name: "Collections", to: "/collections", icon: <BookOpen className="h-4 w-4" /> },
   // { name: "Exhibitions", to: "/exhibitions", icon: <Map className="h-4 w-4" /> },
