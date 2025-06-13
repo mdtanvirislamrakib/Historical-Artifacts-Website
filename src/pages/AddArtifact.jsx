@@ -14,15 +14,17 @@ import {
     Search,
     CheckCircle,
     AlertCircle,
-    Loader2,
     Plus,
     Eye,
     EyeOff,
 } from "lucide-react"
 import { AuthContext } from "../Authentication/AuthProvider"
 import Swal from "sweetalert2"
+import axios from "axios"
+import { useNavigate } from "react-router"
 
 const AddArtifact = () => {
+    const navigate = useNavigate();
     const { user } = use(AuthContext)
     const [formData, setFormData] = useState({
         name: "",
@@ -54,6 +56,7 @@ const AddArtifact = () => {
         "Documents",
         "Writings",
         "Pottery",
+        "Stones",
         "Jewelry",
         "Coins",
         "Sculptures",
@@ -141,7 +144,7 @@ const AddArtifact = () => {
         }
     }
 
-    const handleAddArtifacts =  (e) => {
+    const handleAddArtifacts = (e) => {
         e.preventDefault()
 
         if (!validateForm()) {
@@ -151,14 +154,38 @@ const AddArtifact = () => {
         const formData = new FormData(form)
         const newArtifacts = Object.fromEntries(formData.entries());
 
-        console.log(newArtifacts);
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Your work has been saved",
-            showConfirmButton: false,
-            timer: 1500
-        });
+
+        newArtifacts.email = user?.email;
+        newArtifacts.likedBy = [];
+
+
+        // save artifacts data in DB by add artifacts
+        axios.post('http://localhost:3000/add-artifacts', newArtifacts)
+            .then(res => {
+                if (res?.data?.insertedId) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your artifacts has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate("/all-artifacts")
+                }
+            })
+            .catch(err => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: `${err.message}`,
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            })
+
+
+
+
 
 
         setIsSubmitting(true)

@@ -12,6 +12,8 @@ import BrowseDocumentation from "../pages/BrowseDocumentation";
 import AboutSection from "../pages/About";
 import AddArtifact from "../pages/AddArtifact";
 import AllArtifacts from "../pages/AllArtifacts";
+import axios from "axios";
+import Loader from "../Component/Loader";
 
 
 
@@ -35,6 +37,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/all-artifacts",
+        loader: () => axios("http://localhost:3000/artifacts"),
+        hydrateFallbackElement: <Loader></Loader>,
         Component: AllArtifacts,
       },
       {

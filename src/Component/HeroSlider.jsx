@@ -289,7 +289,7 @@ const HeroSlider = () => {
       </Swiper>
 
       {/* Custom pagination styling */}
-      <style jsx global>{`
+      <style>{`
         .swiper-pagination {
           position: absolute;
           display: flex;
