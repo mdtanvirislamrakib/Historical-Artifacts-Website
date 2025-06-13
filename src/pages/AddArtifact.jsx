@@ -20,6 +20,7 @@ import {
     EyeOff,
 } from "lucide-react"
 import { AuthContext } from "../Authentication/AuthProvider"
+import Swal from "sweetalert2"
 
 const AddArtifact = () => {
     const { user } = use(AuthContext)
@@ -140,48 +141,29 @@ const AddArtifact = () => {
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleAddArtifacts =  (e) => {
         e.preventDefault()
 
         if (!validateForm()) {
             return
         }
+        const form = e.target;
+        const formData = new FormData(form)
+        const newArtifacts = Object.fromEntries(formData.entries());
+
+        console.log(newArtifacts);
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+        });
+
 
         setIsSubmitting(true)
 
-        // Simulate API call
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 2000))
 
-            console.log("Artifact submitted:", {
-                ...formData,
-                submittedBy: loggedInUser,
-                submittedAt: new Date().toISOString(),
-            })
-
-            setSubmitSuccess(true)
-
-            // Reset form after success
-            setTimeout(() => {
-                setFormData({
-                    name: "",
-                    imageUrl: "",
-                    type: "",
-                    historicalContext: "",
-                    description: "",
-                    createdAt: "",
-                    discoveredAt: "",
-                    discoveredBy: "",
-                    presentLocation: "",
-                })
-                setImagePreview("")
-                setSubmitSuccess(false)
-            }, 3000)
-        } catch (error) {
-            console.error("Error submitting artifact:", error)
-        } finally {
-            setIsSubmitting(false)
-        }
     }
 
     const inputVariants = {
@@ -299,7 +281,7 @@ const AddArtifact = () => {
 
                 {/* Form */}
                 <motion.form
-                    onSubmit={handleSubmit}
+                    onSubmit={handleAddArtifacts}
                     className="space-y-8"
                     variants={containerVariants}
                     initial="hidden"
@@ -677,24 +659,15 @@ const AddArtifact = () => {
                             <motion.button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className={`flex items-center space-x-3 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg ${isSubmitting
-                                    ? "bg-gray-600 text-gray-300 cursor-not-allowed"
-                                    : "bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-amber-600/30 hover:shadow-amber-500/40"
-                                    }`}
+                                className={`flex items-center space-x-3 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-400 hover:to-amber-500 shadow-amber-600/30 hover:shadow-amber-500/40 cursor-pointer`}
                                 whileHover={!isSubmitting ? { scale: 1.05 } : {}}
                                 whileTap={!isSubmitting ? { scale: 0.95 } : {}}
                             >
-                                {isSubmitting ? (
-                                    <>
-                                        <Loader2 className="h-6 w-6 animate-spin" />
-                                        <span>Submitting Artifact...</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Upload className="h-6 w-6" />
-                                        <span>Add Artifact</span>
-                                    </>
-                                )}
+                                <>
+                                    <Upload className="h-6 w-6" />
+                                    <span>Add Artifact</span>
+                                </>
+
                             </motion.button>
                         </motion.div>
                     </div>

@@ -11,6 +11,7 @@ import ContactSupport from "../pages/ContactSupport";
 import BrowseDocumentation from "../pages/BrowseDocumentation";
 import AboutSection from "../pages/About";
 import AddArtifact from "../pages/AddArtifact";
+import AllArtifacts from "../pages/AllArtifacts";
 
 
 
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         Component: AboutSection,
+      },
+      {
+        path: "/all-artifacts",
+        Component: AllArtifacts,
       },
       {
         path: "/add-artifacts",

@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect, use } from 'react';
 import { NavLink } from 'react-router';
-import { Menu, X, Scroll, Search, User, Clock, Info, LogOut, Heart, Archive } from 'lucide-react';
+import { Menu, X, Scroll, Search, User, Clock, Info, LogOut, Heart, Archive, BookOpen } from 'lucide-react';
 import navLogo from "../assets/logo.png";
 import { AuthContext } from '../Authentication/AuthProvider';
 import Swal from 'sweetalert2';
 
 const navigationLinks = [
   { name: "Home", to: "/", icon: <Clock className="h-4 w-4" /> },
+  { name: "All Artifacts", to: "/all-artifacts", icon: <BookOpen className="h-4 w-4" /> },
   { name: "Add Artifacts", to: "/add-artifacts", icon: <Scroll className="h-4 w-4" /> },
   { name: "About", to: "/about", icon: <Info className="h-4 w-4" /> },
-  // { name: "Collections", to: "/collections", icon: <BookOpen className="h-4 w-4" /> },
   // { name: "Exhibitions", to: "/exhibitions", icon: <Map className="h-4 w-4" /> },
 ];
 const userDropdownLinks = [
