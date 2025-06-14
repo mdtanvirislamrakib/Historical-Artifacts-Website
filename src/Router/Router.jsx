@@ -14,6 +14,7 @@ import AddArtifact from "../pages/AddArtifact";
 import AllArtifacts from "../pages/AllArtifacts";
 import axios from "axios";
 import Loader from "../Component/Loader";
+import ArtifactsDetail from "../pages/ArtifactsDetail";
 
 
 
@@ -40,6 +41,14 @@ export const router = createBrowserRouter([
         loader: () => axios("http://localhost:3000/artifacts"),
         hydrateFallbackElement: <Loader></Loader>,
         Component: AllArtifacts,
+      },
+      {
+        path: "/artifacts/:id",
+        loader: ({params}) => axios(`http://localhost:3000/artifact-details/${params.id}`),
+        hydrateFallbackElement: <Loader></Loader>,
+        element: <PrivetRoute>
+          <ArtifactsDetail></ArtifactsDetail>
+        </PrivetRoute>
       },
       {
         path: "/add-artifacts",
