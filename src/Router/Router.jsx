@@ -16,6 +16,7 @@ import axios from "axios";
 import Loader from "../Component/Loader";
 import ArtifactsDetail from "../pages/ArtifactsDetail";
 import MyArtifacts from "../pages/MyArtifacts";
+import UpdateArtifacts from "../pages/UpdateArtifacts";
 
 
 
@@ -45,6 +46,14 @@ export const router = createBrowserRouter([
         hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <MyArtifacts></MyArtifacts>
+        </PrivetRoute>
+      },
+      {
+        path: "/update-artifact/:id",
+        loader: ({params}) => fetch(`http://localhost:3000/artifacts/${params.id}`),
+        hydrateFallbackElement: <Loader></Loader>,
+        element: <PrivetRoute>
+          <UpdateArtifacts></UpdateArtifacts>
         </PrivetRoute>
       },
       {

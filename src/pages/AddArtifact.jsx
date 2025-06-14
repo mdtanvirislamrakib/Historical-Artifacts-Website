@@ -40,7 +40,6 @@ const AddArtifact = () => {
 
     const [errors, setErrors] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [submitSuccess, setSubmitSuccess] = useState(false)
     const [imagePreview, setImagePreview] = useState("")
     const [showImagePreview, setShowImagePreview] = useState(false)
 
@@ -288,23 +287,6 @@ const AddArtifact = () => {
                         Share your archaeological discoveries with the global research community
                     </p>
                 </motion.div>
-
-                {/* Success Message */}
-                <AnimatePresence>
-                    {submitSuccess && (
-                        <motion.div
-                            className="mb-8 p-6 rounded-2xl bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-center"
-                            initial={{ opacity: 0, scale: 0.9, y: -20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <CheckCircle className="h-12 w-12 text-green-400 mx-auto mb-3" />
-                            <h3 className="text-xl font-bold text-green-300 mb-2">Artifact Successfully Submitted!</h3>
-                            <p className="text-green-200">Your artifact has been added to the review queue.</p>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
 
                 {/* Form */}
                 <motion.form

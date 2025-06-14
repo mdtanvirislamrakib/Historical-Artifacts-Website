@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { Edit, Trash2, Eye, Calendar, MapPin, Clock, Heart, Star } from "lucide-react";
 import Swal from "sweetalert2";
 
 const MyArtifactCard = ({ artifact }) => {
+    const navigate = useNavigate();
     const [isHovered, setIsHovered] = useState(false);
 
     const handleEdit = () => {
+        navigate(`/update-artifact/${artifact._id}`)
         console.log("edit");
     }
 
