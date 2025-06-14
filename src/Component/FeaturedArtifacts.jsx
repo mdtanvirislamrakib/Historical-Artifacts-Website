@@ -1,7 +1,7 @@
 
 
 import { useState, useMemo } from "react";
-import { Link } from "react-router"; // Use react-router-dom for Link
+import { Link } from "react-router"; 
 import { motion } from "framer-motion";
 import {
     Heart,

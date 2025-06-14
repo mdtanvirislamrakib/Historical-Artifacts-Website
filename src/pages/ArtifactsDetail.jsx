@@ -481,26 +481,7 @@ const ArtifactsDetail = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <motion.button
-                className="flex-1 flex items-center justify-center space-x-3 px-6 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold hover:from-amber-400 hover:to-amber-500 transition-all duration-300 shadow-lg shadow-amber-600/30"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Download className="h-5 w-5" />
-                <span>Download High-Res</span>
-              </motion.button>
-
-              <motion.button
-                className="flex-1 flex items-center justify-center space-x-3 px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <FileText className="h-5 w-5" />
-                <span>View Research Papers</span>
-              </motion.button>
-            </div>
+            
           </motion.div>
         </motion.div>
 

@@ -12,7 +12,15 @@ const navigationLinks = [
   { name: "About", to: "/about", icon: <Info className="h-4 w-4" /> },
   // { name: "Exhibitions", to: "/exhibitions", icon: <Map className="h-4 w-4" /> },
 ];
-const userDropdownLinks = [
+
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { user, logOut } = use(AuthContext);
+  const dropdownRef = useRef(null);
+
+  const userDropdownLinks = [
   {
     name: "Liked Artifacts",
     to: "/liked-artifacts",
@@ -20,16 +28,10 @@ const userDropdownLinks = [
   },
   {
     name: "My Artifacts",
-    to: "/my-artifacts",
+    to: `/my-artifacts/${user?.email}`,
     icon: <Archive className="h-4 w-4" />,
   },
 ];
-
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, logOut } = use(AuthContext);
-  const dropdownRef = useRef(null);
 
   // For closing dropdown on outside click
   useEffect(() => {

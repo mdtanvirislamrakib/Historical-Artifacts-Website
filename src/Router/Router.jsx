@@ -15,6 +15,7 @@ import AllArtifacts from "../pages/AllArtifacts";
 import axios from "axios";
 import Loader from "../Component/Loader";
 import ArtifactsDetail from "../pages/ArtifactsDetail";
+import MyArtifacts from "../pages/MyArtifacts";
 
 
 
@@ -37,6 +38,14 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         Component: AboutSection,
+      },
+      {
+        path: "/my-artifacts/:email",
+        loader: ({params}) => axios(`http://localhost:3000/my-artifact/${params.email}`),
+        hydrateFallbackElement: <Loader></Loader>,
+        element: <PrivetRoute>
+          <MyArtifacts></MyArtifacts>
+        </PrivetRoute>
       },
       {
         path: "/all-artifacts",
