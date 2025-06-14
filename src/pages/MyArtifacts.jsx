@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use, useState } from "react";
 import { useLoaderData, NavLink } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Package, TrendingUp, Award, Star, Globe, Users, Activity } from "lucide-react";
@@ -10,7 +10,10 @@ import MyArtifactCard from "../Component/MyArtifactCard";
 const MyArtifacts = () => {
     const { user } = use(AuthContext);
     const AllArtifactsData = useLoaderData();
-    const artifacts = AllArtifactsData?.data || [];
+    const initialArtifacts = AllArtifactsData?.data || [];
+
+    const [artifacts, setArtifacts] = useState(initialArtifacts);
+
 
 
 
@@ -144,6 +147,8 @@ const MyArtifacts = () => {
                                 <MyArtifactCard 
                                     key={artifact._id} 
                                     artifact={artifact}
+                                    artifacts = {artifacts}
+                                    setArtifacts = {setArtifacts}
                                 />
                             ))}
                         </motion.div>

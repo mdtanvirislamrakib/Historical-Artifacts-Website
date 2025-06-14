@@ -20,11 +20,12 @@ import {
 } from "lucide-react"
 import { AuthContext } from "../Authentication/AuthProvider"
 import Swal from "sweetalert2"
-import { useLoaderData, useNavigate } from "react-router"
+import { useLoaderData } from "react-router"
+import axios from "axios"
 
 const AddArtifact = () => {
     const updatedData = useLoaderData()
-    const navigate = useNavigate();
+
     const { user } = use(AuthContext)
     const [formData, setFormData] = useState({
         name: updatedData?.name || "",
@@ -157,6 +158,21 @@ const AddArtifact = () => {
 
         newArtifacts.email = user?.email;
         // newArtifacts.likedBy = [];
+
+        // update artifacts data from database
+        axios.put(`http://localhost:3000/artifacts/${updatedData?._id}`, newArtifacts)
+            .then(data => {
+                console.log("After update", data.data);
+                if (data?.data?.modifiedCount) {
+                    Swal.fire({
+                        title: "Update Artifact Info!",
+                        icon: "success",
+                        draggable: true
+                    });
+                }
+            })
+
+
 
         setIsSubmitting(true)
 

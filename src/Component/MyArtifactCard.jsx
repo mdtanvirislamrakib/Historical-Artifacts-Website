@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Edit, Trash2, Eye, Calendar, MapPin, Clock, Heart, Star } from "lucide-react";
 import Swal from "sweetalert2";
 
-const MyArtifactCard = ({ artifact }) => {
+const MyArtifactCard = ({ artifact, artifacts, setArtifacts }) => {
     const navigate = useNavigate();
     const [isHovered, setIsHovered] = useState(false);
 
@@ -37,9 +37,13 @@ const MyArtifactCard = ({ artifact }) => {
                                 text: "Your file has been deleted.",
                                 icon: "success"
                             });
+
+                            const remainingArtifacts = artifacts.filter(artifact => artifact._id !== _id)
+                            setArtifacts(remainingArtifacts)
+
                         }
                     })
-
+                
 
 
             }
