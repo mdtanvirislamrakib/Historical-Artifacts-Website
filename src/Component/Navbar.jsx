@@ -23,7 +23,7 @@ const Navbar = () => {
   const userDropdownLinks = [
   {
     name: "Liked Artifacts",
-    to: "/liked-artifacts",
+    to: `/liked-artifacts/${user?.email}`,
     icon: <Heart className="h-4 w-4" />,
   },
   {

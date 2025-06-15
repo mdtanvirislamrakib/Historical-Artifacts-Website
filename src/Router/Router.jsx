@@ -17,6 +17,7 @@ import Loader from "../Component/Loader";
 import ArtifactsDetail from "../pages/ArtifactsDetail";
 import MyArtifacts from "../pages/MyArtifacts";
 import UpdateArtifacts from "../pages/UpdateArtifacts";
+import LikedArtifacts from "../pages/LikedArtifacts";
 
 
 
@@ -46,6 +47,14 @@ export const router = createBrowserRouter([
         hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <MyArtifacts></MyArtifacts>
+        </PrivetRoute>
+      },
+      {
+        path: "/liked-artifacts/:email",
+        loader: ({params}) => fetch(`http://localhost:3000/liked-artifacts/${params.email}`),
+        hydrateFallbackElement: <Loader></Loader>,
+        element: <PrivetRoute>
+          <LikedArtifacts></LikedArtifacts>
         </PrivetRoute>
       },
       {

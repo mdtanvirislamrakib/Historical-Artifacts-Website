@@ -1,5 +1,3 @@
-"use client"
-
 import { use, useEffect, useState } from "react"
 import { useLoaderData, Link, useNavigate } from "react-router"
 import { motion, AnimatePresence } from "framer-motion"
