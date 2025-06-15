@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { use, useEffect, useState } from "react"
 import { useLoaderData, Link, useNavigate } from "react-router"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -27,13 +27,24 @@ import {
   History,
   Award,
 } from "lucide-react"
+import { AuthContext } from "../Authentication/AuthProvider"
+import Swal from "sweetalert2"
+import axios from "axios"
 
 const ArtifactsDetail = () => {
+  const { user } = use(AuthContext)
+
   const artifactData = useLoaderData()
   const artifact = artifactData?.data
   const navigate = useNavigate()
 
-  const [isLiked, setIsLiked] = useState(false)
+  const [isLiked, setIsLiked] = useState(artifact?.likedBy?.includes(user?.email));
+  const [likeCount, setLikeCount] = useState(artifact?.likedBy?.length);
+
+  useEffect(() => {
+    setIsLiked(artifact?.likedBy?.includes(user?.email))
+  }, [artifact?.likedBy, user])
+
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [imageZoom, setImageZoom] = useState(1)
   const [imageRotation, setImageRotation] = useState(0)
@@ -42,21 +53,32 @@ const ArtifactsDetail = () => {
   const [shareMenuOpen, setShareMenuOpen] = useState(false)
 
   // Mock user data - replace with actual user context
-  const currentUser = {
-    email: "user@example.com",
-  }
 
-  useEffect(() => {
-    // Check if current user has liked this artifact
-    if (artifact?.likedBy?.includes(currentUser.email)) {
-      setIsLiked(true)
+
+  const handleLike = () => {
+    if (artifact?.email === user?.email) {
+      return Swal.fire({
+        title: "You don't like your own post!",
+        icon: "warning",
+        draggable: true
+      });
     }
-  }, [artifact, currentUser.email])
 
-  const handleLike = async () => {
-    setIsLiked(!isLiked)
     // Here you would make an API call to update the like status
-    console.log(`${isLiked ? "Unliked" : "Liked"} artifact:`, artifact._id)
+    axios.patch(`http://localhost:3000/like/${artifact?._id}`, {
+      email: user?.email,
+    })
+    .then(data => {
+      console.log("liked data", data?.data);
+      setIsLiked(data?.data?.liked)
+
+      setLikeCount(prev => data?.data?.liked ? prev + 1 : prev - 1)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+
   }
 
   const handleBookmark = () => {
@@ -196,11 +218,10 @@ const ArtifactsDetail = () => {
           <div className="flex items-center space-x-3">
             <motion.button
               onClick={handleLike}
-              className={`p-3 rounded-xl backdrop-blur-sm border transition-all duration-300 ${
-                isLiked
+              className={`p-3 rounded-xl backdrop-blur-sm border transition-all duration-300 ${isLiked
                   ? "bg-red-500/20 border-red-400/30 text-red-400"
                   : "bg-white/10 border-white/20 text-gray-400 hover:text-red-400 hover:bg-red-500/10"
-              }`}
+                }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -209,11 +230,10 @@ const ArtifactsDetail = () => {
 
             <motion.button
               onClick={handleBookmark}
-              className={`p-3 rounded-xl backdrop-blur-sm border transition-all duration-300 ${
-                isBookmarked
+              className={`p-3 rounded-xl backdrop-blur-sm border transition-all duration-300 ${isBookmarked
                   ? "bg-amber-500/20 border-amber-400/30 text-amber-400"
                   : "bg-white/10 border-white/20 text-gray-400 hover:text-amber-400 hover:bg-amber-500/10"
-              }`}
+                }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -349,7 +369,7 @@ const ArtifactsDetail = () => {
               </div>
               <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                 <Heart className="h-6 w-6 text-red-400 mx-auto mb-2" />
-                <div className="text-lg font-bold text-white">{artifact.likedBy?.length || 0}</div>
+                <div className="text-lg font-bold text-white">{likeCount || 0}</div>
                 <div className="text-sm text-gray-400">Likes</div>
               </div>
               <div className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
@@ -481,7 +501,7 @@ const ArtifactsDetail = () => {
               </div>
             </div>
 
-            
+
           </motion.div>
         </motion.div>
 

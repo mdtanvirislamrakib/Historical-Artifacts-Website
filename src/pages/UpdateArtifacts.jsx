@@ -20,11 +20,12 @@ import {
 } from "lucide-react"
 import { AuthContext } from "../Authentication/AuthProvider"
 import Swal from "sweetalert2"
-import { useLoaderData } from "react-router"
+import { useLoaderData, useNavigate } from "react-router"
 import axios from "axios"
 
 const AddArtifact = () => {
     const updatedData = useLoaderData()
+    const navigate = useNavigate();
 
     const { user } = use(AuthContext)
     const [formData, setFormData] = useState({
@@ -169,6 +170,7 @@ const AddArtifact = () => {
                         icon: "success",
                         draggable: true
                     });
+                    navigate(`/my-artifacts/${user?.email}`)
                 }
             })
 

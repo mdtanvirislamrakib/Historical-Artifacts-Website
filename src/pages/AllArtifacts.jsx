@@ -132,17 +132,6 @@ const AllArtifacts = () => {
           </motion.div>
         </div>
 
-        {/* Like button */}
-        <div className="absolute top-4 right-4">
-          <motion.button
-            className="p-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Heart className="h-4 w-4" />
-          </motion.button>
-        </div>
-
         {/* Floating sparkle effect */}
         <motion.div
           className="absolute top-6 right-12 text-amber-400/60"
