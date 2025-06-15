@@ -1,31 +1,16 @@
-
-
 import { useState, useMemo } from "react";
 import { Link } from "react-router"; 
 import { motion } from "framer-motion";
 import {
     Heart,
-    Eye,
     ChevronRight,
     Sparkles,
     TrendingUp,
     Award,
-    Star,
     ArrowRight,
     Crown,
     Flame,
 } from "lucide-react";
-
-// Helper for random view count, memoized so it doesn't change on re-render
-const useRandomViews = (count) => {
-    return useMemo(
-        () =>
-            Array.from({ length: count }, () =>
-                Math.floor(Math.random() * 1000) + 100
-            ),
-        [count]
-    );
-};
 
 const FeaturedCard = ({
     artifact,
@@ -33,7 +18,6 @@ const FeaturedCard = ({
     isTopRated,
     hoveredCard,
     setHoveredCard,
-    randomViews,
 }) => {
     const cardVariants = {
         hidden: { opacity: 0, y: 50, scale: 0.9 },
@@ -171,29 +155,12 @@ const FeaturedCard = ({
                         : artifact.description}
                 </p>
 
-                {/* Stats Row */}
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center space-x-4">
-                        <div className="flex items-center space-x-1 text-gray-400">
-                            <Heart className="h-4 w-4 text-red-400" />
-                            <span className="text-sm font-medium">{artifact.likeCount || 0}</span>
-                        </div>
-
-                        <div className="flex items-center space-x-1 text-gray-400">
-                            <Eye className="h-4 w-4 text-blue-400" />
-                            <span className="text-sm">
-                                {randomViews[index] ?? 0}
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
                 {/* View Details Button */}
                 <Link
                     to={`/artifacts/${artifact._id}`}
                     className="group/btn flex items-center justify-center space-x-2 w-full px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-600/20 text-amber-300 font-medium hover:from-amber-500/30 hover:to-amber-600/30 transition-all duration-300 backdrop-blur-sm border border-amber-400/20 hover:border-amber-400/40"
                 >
-                    <Eye className="h-4 w-4 transition-transform duration-300 group-hover/btn:scale-110" />
                     <span>View Details</span>
                     <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 </Link>
@@ -220,9 +187,6 @@ const FeaturedArtifacts = ({ featuredData }) => {
             .sort((a, b) => (b.likeCount || 0) - (a.likeCount || 0))
             .slice(0, 6);
     }, [featuredData]);
-
-    // Memoize random views for each artifact to keep them consistent per render
-    const randomViews = useRandomViews(topArtifacts.length);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -353,7 +317,6 @@ const FeaturedArtifacts = ({ featuredData }) => {
                             isTopRated={index === 0 && (artifact.likeCount || 0) > 0}
                             hoveredCard={hoveredCard}
                             setHoveredCard={setHoveredCard}
-                            randomViews={randomViews}
                         />
                     ))}
                 </motion.div>
