@@ -163,7 +163,7 @@ const AboutSection = () => {
       }}
     >
 
-      // dynamic title add
+      {/* dynamic title add */}
       <Helmet>
         <title>HistoriVault | About</title>
       </Helmet>

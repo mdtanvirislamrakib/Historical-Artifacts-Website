@@ -15,7 +15,7 @@ const ErrorPage = () => {
     };
     return (
         <>
-            // dynamic title add
+            {/* // dynamic title add */}
             <Helmet>
                 <title>HistoriVault | Error</title>
             </Helmet>

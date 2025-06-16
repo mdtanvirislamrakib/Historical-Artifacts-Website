@@ -219,7 +219,7 @@ const AddArtifact = () => {
                 background: "linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.98) 50%, rgba(0,0,0,0.95) 100%)",
             }}
         >
-            // dynamic title add
+            {/* // dynamic title add */}
       <Helmet>
         <title>HistoriVault | Update-Artifacts</title>
       </Helmet>

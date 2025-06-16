@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <div>
-            // dynamic title add
+            {/* // dynamic title add */}
             <Helmet>
                 <title>HistoriVault | Home</title>
             </Helmet>

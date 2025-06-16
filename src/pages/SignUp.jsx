@@ -146,7 +146,7 @@ const SignUp = () => {
           "linear-gradient(135deg, #18181b 0%, #23232b 50%, #18181b 100%)",
       }}
     >
-      // dynamic title add
+      {/* // dynamic title add */}
       <Helmet>
         <title>HistoriVault | SignUp</title>
       </Helmet>
