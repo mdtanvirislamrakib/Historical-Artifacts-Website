@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, use } from 'react';
 import { NavLink } from 'react-router';
-import { Menu, X, Scroll, Search, User, Clock, Info, LogOut, Heart, Archive, BookOpen } from 'lucide-react';
+import { Menu, X, Scroll, User, Clock, Info, LogOut, Heart, Archive, BookOpen } from 'lucide-react';
 import navLogo from "../assets/logo.png";
 import { AuthContext } from '../Authentication/AuthProvider';
 import Swal from 'sweetalert2';
@@ -129,7 +129,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Search and Login/User */}
+          
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <div className="relative" ref={dropdownRef}>
@@ -227,24 +227,6 @@ const Navbar = () => {
           }}>
           {/* Mobile glass reflection */}
           <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-50 pointer-events-none"></div>
-
-          {/* Mobile Search */}
-          <div className="px-3 py-2 relative">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-300" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search artifacts..."
-                className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/10 border border-white/20 rounded-full text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400/50 focus:border-amber-400/50 backdrop-blur-sm"
-                style={{
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)'
-                }}
-              />
-            </div>
-          </div>
 
           {/* Mobile Navigation Links */}
           <div className="space-y-1 px-3 py-2 relative">

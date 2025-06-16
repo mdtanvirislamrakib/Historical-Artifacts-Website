@@ -4,6 +4,7 @@ import { BookOpen, Search, Filter, ChevronRight, Download, Eye, Star, Clock, Use
 import carbonImage from "../assets/carbon.jpg";
 import egyptImage from "../assets/egypt.jpg";
 import apiImage from "../assets/api.jpg";
+import { Helmet } from 'react-helmet-async';
 
 const BrowseDocumentation = () => {
     const [activeCategory, setActiveCategory] = useState('getting-started');
@@ -301,6 +302,12 @@ const BrowseDocumentation = () => {
             style={{
                 background: 'linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.98) 50%, rgba(0,0,0,0.95) 100%)',
             }}>
+
+            // dynamic title add
+            <Helmet>
+                <title>HistoriVault | Browse-Documentation</title>
+            </Helmet>
+
             {/* Background Effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-amber-600/5"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(251,191,36,0.1),transparent_50%)]"></div>

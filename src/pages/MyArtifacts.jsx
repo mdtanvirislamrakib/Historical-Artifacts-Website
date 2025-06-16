@@ -5,6 +5,7 @@ import { Plus, Package, TrendingUp, Award, Star, Globe, Users, Activity } from "
 import { AuthContext } from "../Authentication/AuthProvider";
 import Swal from "sweetalert2";
 import MyArtifactCard from "../Component/MyArtifactCard";
+import { Helmet } from "react-helmet-async";
 
 
 const MyArtifacts = () => {
@@ -32,6 +33,12 @@ const MyArtifacts = () => {
         <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{
             background: "linear-gradient(135deg, rgba(0,0,0,0.97) 0%, rgba(20,20,20,0.99) 50%, rgba(0,0,0,0.97) 100%)",
         }}>
+
+        // dynamic title add
+            <Helmet>
+                <title>HistoriVault | My-Artifacts</title>
+            </Helmet>
+
             {/* Background Effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/3 via-transparent to-purple-600/3"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(251,191,36,0.08),transparent_50%)]"></div>
@@ -77,7 +84,7 @@ const MyArtifacts = () => {
                         <div className="flex items-center space-x-6">
                             <motion.div className="relative" whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
                                 <img
-                                    src={user?.photoURL|| "/placeholder.svg"}
+                                    src={user?.photoURL || "/placeholder.svg"}
                                     alt={user?.name}
                                     className="w-20 h-20 rounded-2xl border-2 border-amber-400/40 shadow-lg shadow-amber-500/20"
                                     onError={(e) => {
@@ -144,11 +151,11 @@ const MyArtifacts = () => {
                             layout
                         >
                             {artifacts.map((artifact) => (
-                                <MyArtifactCard 
-                                    key={artifact._id} 
+                                <MyArtifactCard
+                                    key={artifact._id}
                                     artifact={artifact}
-                                    artifacts = {artifacts}
-                                    setArtifacts = {setArtifacts}
+                                    artifacts={artifacts}
+                                    setArtifacts={setArtifacts}
                                 />
                             ))}
                         </motion.div>

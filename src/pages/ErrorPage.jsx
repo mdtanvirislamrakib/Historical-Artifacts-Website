@@ -2,6 +2,7 @@ import React from 'react';
 import errorLottie from "../assets/errorLottie.json"
 import Lottie from 'react-lottie';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 const ErrorPage = () => {
     const defaultOptions = {
@@ -14,7 +15,10 @@ const ErrorPage = () => {
     };
     return (
         <>
-
+            // dynamic title add
+            <Helmet>
+                <title>HistoriVault | Error</title>
+            </Helmet>
             <div className='min-h-screen flex items-center justify-center flex-col'>
                 <Lottie options={defaultOptions} height={400} width={400} />
                 <button>

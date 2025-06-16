@@ -14,6 +14,7 @@ import {
 import { AuthContext } from "../Authentication/AuthProvider"
 import Swal from "sweetalert2"
 import axios from "axios"
+import { Helmet } from "react-helmet-async"
 
 const ArtifactsDetail = () => {
   const { user } = use(AuthContext)
@@ -34,7 +35,7 @@ const ArtifactsDetail = () => {
       return Swal.fire({
         title: "You don't like your own post!",
         icon: "warning",
-        draggable: true
+        draggable: false
       });
     }
 
@@ -94,6 +95,10 @@ const ArtifactsDetail = () => {
         background: "linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.98) 50%, rgba(0,0,0,0.95) 100%)",
       }}
     >
+      // dynamic title add
+      <Helmet>
+        <title>HistoriVault | Artifact-Details</title>
+      </Helmet>
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-amber-600/5"></div>
 

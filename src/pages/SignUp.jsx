@@ -6,6 +6,7 @@ import signUpLottie from "../assets/signup.json";
 import { AuthContext } from "../Authentication/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet-async";
 
 const GlassReflection = () => (
   <div className="absolute inset-0 pointer-events-none">
@@ -145,6 +146,10 @@ const SignUp = () => {
           "linear-gradient(135deg, #18181b 0%, #23232b 50%, #18181b 100%)",
       }}
     >
+      // dynamic title add
+      <Helmet>
+        <title>HistoriVault | SignUp</title>
+      </Helmet>
       {/* Decorative Background Orbs */}
       <div className="absolute top-[-4rem] left-[-4rem] w-72 h-72 bg-amber-500/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-[-6rem] right-[-5rem] w-96 h-96 bg-amber-600/20 rounded-full blur-3xl animate-pulse delay-1000" />

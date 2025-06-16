@@ -18,6 +18,7 @@ import {
   Sparkles,
   TrendingUp,
 } from "lucide-react"
+import { Helmet } from "react-helmet-async"
 
 const AllArtifacts = () => {
   const AllArtifactsData = useLoaderData()
@@ -219,6 +220,10 @@ const AllArtifacts = () => {
         background: "linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.98) 50%, rgba(0,0,0,0.95) 100%)",
       }}
     >
+      // dynamic title add
+      <Helmet>
+        <title>HistoriVault | All-Artifacts</title>
+      </Helmet>
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-amber-600/5"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(251,191,36,0.1),transparent_50%)]"></div>

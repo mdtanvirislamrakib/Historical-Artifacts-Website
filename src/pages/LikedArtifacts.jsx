@@ -1,7 +1,9 @@
 import { useLoaderData } from "react-router"
 import { motion } from "framer-motion"
 import { Heart, Sparkles, Star, TrendingUp } from "lucide-react"
-import MyLikedArtifactCard from "./MyLikedArtifactCard"
+
+import { Helmet } from "react-helmet-async"
+import MyLikedArtifactCard from "../Component/MyLikedArtifactCard"
 
 const LikedArtifacts = () => {
   const likedArtifacts = useLoaderData()
@@ -33,6 +35,11 @@ const LikedArtifacts = () => {
         background: "linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.98) 50%, rgba(0,0,0,0.95) 100%)",
       }}
     >
+      // dynamic title add
+      <Helmet>
+        <title>HistoriVault | Liked-Artifacts</title>
+      </Helmet>
+
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-transparent to-red-600/5"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(236,72,153,0.1),transparent_50%)]"></div>
