@@ -43,7 +43,6 @@ const ArtifactsDetail = () => {
       email: user?.email,
     })
     .then(data => {
-      console.log("liked data", data?.data);
       setIsLiked(data?.data?.liked)
       setLikeCount(prev => data?.data?.liked ? prev + 1 : prev - 1)
     })

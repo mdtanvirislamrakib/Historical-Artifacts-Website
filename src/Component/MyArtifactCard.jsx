@@ -10,7 +10,6 @@ const MyArtifactCard = ({ artifact, artifacts, setArtifacts }) => {
 
     const handleEdit = () => {
         navigate(`/update-artifact/${artifact._id}`)
-        console.log("edit");
     }
 
     const handleDelete = (_id) => {

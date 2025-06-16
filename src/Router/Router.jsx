@@ -43,7 +43,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-artifacts/:email",
-        loader: ({params}) => axios(`http://localhost:3000/my-artifact/${params.email}`),
+        loader: ({params}) => axios(`http://localhost:3000/my-artifact/${params.email}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }),
         hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <MyArtifacts></MyArtifacts>
@@ -51,7 +55,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/liked-artifacts/:email",
-        loader: ({params}) => fetch(`http://localhost:3000/liked-artifacts/${params.email}`),
+        loader: ({params}) => fetch(`http://localhost:3000/liked-artifacts/${params.email}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }),
         hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <LikedArtifacts></LikedArtifacts>
@@ -59,7 +67,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/update-artifact/:id",
-        loader: ({params}) => fetch(`http://localhost:3000/artifacts/${params.id}`),
+        loader: ({params}) => fetch(`http://localhost:3000/artifacts/${params.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }),
         hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <UpdateArtifacts></UpdateArtifacts>
@@ -73,7 +85,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/artifacts/:id",
-        loader: ({params}) => axios(`http://localhost:3000/artifact-details/${params.id}`),
+        loader: ({params}) => axios(`http://localhost:3000/artifact-details/${params.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }),
         hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <ArtifactsDetail></ArtifactsDetail>
@@ -97,9 +113,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/browse-documentation",
-        element: <PrivetRoute>
-          <BrowseDocumentation></BrowseDocumentation>
-        </PrivetRoute>
+        element: <BrowseDocumentation></BrowseDocumentation>
       }
     ]
   },

@@ -19,10 +19,8 @@ const MyLikedArtifactCard = ({ artifact, viewMode = "grid", showLikeStatus = tru
   const [isLiked, setIsLiked] = useState(true) // Always true for liked artifacts
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const handleUnlike = async () => {
+  const handleUnlike = () => {
     setIsLiked(false)
-    // Here you would make an API call to unlike the artifact
-    console.log("Unliked artifact:", artifact._id)
   }
 
   const cardVariants = {

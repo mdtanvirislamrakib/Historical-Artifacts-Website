@@ -41,7 +41,6 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add your signup logic here
-    console.log("Signup attempt:", formData);
 
     const form = e.target;
     const name = form.username.value;

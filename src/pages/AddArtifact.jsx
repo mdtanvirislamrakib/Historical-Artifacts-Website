@@ -158,7 +158,11 @@ const AddArtifact = () => {
 
 
         // save artifacts data in DB by add artifacts
-        axios.post('http://localhost:3000/add-artifacts', newArtifacts)
+        axios.post('http://localhost:3000/add-artifacts', newArtifacts, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
             .then(res => {
                 if (res?.data?.insertedId) {
                     Swal.fire({

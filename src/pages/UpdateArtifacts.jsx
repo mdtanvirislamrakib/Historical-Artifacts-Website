@@ -154,7 +154,7 @@ const AddArtifact = () => {
         const formData = new FormData(form)
         const newArtifacts = Object.fromEntries(formData.entries());
 
-        console.log(newArtifacts);
+
 
         newArtifacts.email = user?.email;
         // newArtifacts.likedBy = [];
@@ -162,7 +162,6 @@ const AddArtifact = () => {
         // update artifacts data from database
         axios.put(`http://localhost:3000/artifacts/${updatedData?._id}`, newArtifacts)
             .then(data => {
-                console.log("After update", data.data);
                 if (data?.data?.modifiedCount) {
                     Swal.fire({
                         title: "Update Artifact Info!",
