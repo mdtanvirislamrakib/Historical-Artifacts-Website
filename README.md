@@ -4,8 +4,7 @@ A full-stack MERN-based web application designed to preserve and showcase histor
 
 ## 🌐 Live Site
 
-👉 [Visit the Live Project](https://historical-artifact-tracker.netlify.app/)  
-*(Replace with your actual deployed URL)*
+👉 [Visit the Live Project](https://historical-artifacts.netlify.app) 
 
 ---
 
