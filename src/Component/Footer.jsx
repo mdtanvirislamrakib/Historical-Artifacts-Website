@@ -33,10 +33,10 @@ const socialLinks = [
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Artifacts", href: "/artifacts" },
-  { name: "Contact", href: "/contact" },
-  { name: "Login", href: "/login" },
-  { name: "Sign Up", href: "/signup" },
+  { name: "About", href: "/about" },
+  { name: "Artifacts", href: "/all-artifacts" },
+  { name: "Contact", href: "/contact-support" },
+  { name: "Browse Documentation", href: "/browse-documentation" },
 ];
 
 const Footer = () => {
