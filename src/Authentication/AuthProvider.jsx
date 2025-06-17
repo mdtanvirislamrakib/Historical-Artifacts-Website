@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
-import React, { createContext, useEffect, useState } from 'react';
-import { auth } from '../Firebase/firebase.config';
 import axios from 'axios';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import { createContext, useEffect, useState } from 'react';
+import { auth } from '../Firebase/firebase.config';
 
 
 
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
 
             if(currentUser?.email) {
                 const userData = {email: currentUser?.email};
-                axios.post('http://localhost:3000/jwt', userData)
+                axios.post('https://historical-artifacts-server-three.vercel.app/jwt', userData)
                 .then(res => {
                     const token = res?.data?.token;
                     localStorage.setItem("token", token)

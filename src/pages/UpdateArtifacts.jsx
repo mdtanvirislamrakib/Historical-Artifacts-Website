@@ -1,26 +1,25 @@
-import { use, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import axios from "axios"
+import { AnimatePresence, motion } from "framer-motion"
 import {
-    Upload,
-    Calendar,
-    MapPin,
-    User,
-    FileText,
-    ImageIcon,
-    Tag,
-    Clock,
-    Search,
-    CheckCircle,
     AlertCircle,
-    Plus,
+    Calendar,
+    Clock,
     Eye,
     EyeOff,
+    FileText,
+    ImageIcon,
+    MapPin,
+    Plus,
+    Search,
+    Tag,
+    Upload,
+    User
 } from "lucide-react"
-import { AuthContext } from "../Authentication/AuthProvider"
-import Swal from "sweetalert2"
-import { useLoaderData, useNavigate } from "react-router"
-import axios from "axios"
+import { use, useState } from "react"
 import { Helmet } from "react-helmet-async"
+import { useLoaderData, useNavigate } from "react-router"
+import Swal from "sweetalert2"
+import { AuthContext } from "../Authentication/AuthProvider"
 
 const AddArtifact = () => {
     const updatedData = useLoaderData()
@@ -160,7 +159,7 @@ const AddArtifact = () => {
         // newArtifacts.likedBy = [];
 
         // update artifacts data from database
-        axios.put(`http://localhost:3000/artifacts/${updatedData?._id}`, newArtifacts)
+        axios.put(`https://historical-artifacts-server-three.vercel.app/artifacts/${updatedData?._id}`, newArtifacts)
             .then(data => {
                 if (data?.data?.modifiedCount) {
                     Swal.fire({

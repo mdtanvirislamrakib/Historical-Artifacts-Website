@@ -1,26 +1,25 @@
-import { use, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import axios from "axios"
+import { AnimatePresence, motion } from "framer-motion"
 import {
-    Upload,
-    Calendar,
-    MapPin,
-    User,
-    FileText,
-    ImageIcon,
-    Tag,
-    Clock,
-    Search,
-    CheckCircle,
     AlertCircle,
-    Plus,
+    Calendar,
+    Clock,
     Eye,
     EyeOff,
+    FileText,
+    ImageIcon,
+    MapPin,
+    Plus,
+    Search,
+    Tag,
+    Upload,
+    User
 } from "lucide-react"
-import { AuthContext } from "../Authentication/AuthProvider"
-import Swal from "sweetalert2"
-import axios from "axios"
-import { useNavigate } from "react-router"
+import { use, useState } from "react"
 import { Helmet } from "react-helmet-async"
+import { useNavigate } from "react-router"
+import Swal from "sweetalert2"
+import { AuthContext } from "../Authentication/AuthProvider"
 
 const AddArtifact = () => {
     const navigate = useNavigate();
@@ -158,7 +157,7 @@ const AddArtifact = () => {
 
 
         // save artifacts data in DB by add artifacts
-        axios.post('http://localhost:3000/add-artifacts', newArtifacts, {
+        axios.post('https://historical-artifacts-server-three.vercel.app/add-artifacts', newArtifacts, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }

@@ -1,7 +1,7 @@
+import { motion } from "framer-motion";
+import { Calendar, Clock, Edit, Eye, Heart, MapPin, Star, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { motion } from "framer-motion";
-import { Edit, Trash2, Eye, Calendar, MapPin, Clock, Heart, Star } from "lucide-react";
 import Swal from "sweetalert2";
 
 const MyArtifactCard = ({ artifact, artifacts, setArtifacts }) => {
@@ -25,7 +25,7 @@ const MyArtifactCard = ({ artifact, artifacts, setArtifacts }) => {
             if (result.isConfirmed) {
 
 
-                fetch(`http://localhost:3000/my-artifact/${_id}`, {
+                fetch(`https://historical-artifacts-server-three.vercel.app/my-artifact/${_id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

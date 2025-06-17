@@ -1,20 +1,20 @@
-import { use, useEffect, useState } from "react"
-import { useLoaderData, Link, useNavigate } from "react-router"
-import { motion, AnimatePresence } from "framer-motion"
-import {
-  ArrowLeft,
-  Heart,
-  Calendar,
-  MapPin,
-  User,
-  Clock,
-  History,
-  Mail,
-} from "lucide-react"
-import { AuthContext } from "../Authentication/AuthProvider"
-import Swal from "sweetalert2"
 import axios from "axios"
+import { motion } from "framer-motion"
+import {
+    ArrowLeft,
+    Calendar,
+    Clock,
+    Heart,
+    History,
+    Mail,
+    MapPin,
+    User,
+} from "lucide-react"
+import { use, useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
+import { Link, useLoaderData, useNavigate } from "react-router"
+import Swal from "sweetalert2"
+import { AuthContext } from "../Authentication/AuthProvider"
 
 const ArtifactsDetail = () => {
   const { user } = use(AuthContext)
@@ -39,7 +39,7 @@ const ArtifactsDetail = () => {
       });
     }
 
-    axios.patch(`http://localhost:3000/like/${artifact?._id}`, {
+    axios.patch(`https://historical-artifacts-server-three.vercel.app/like/${artifact?._id}`, {
       email: user?.email,
     })
     .then(data => {

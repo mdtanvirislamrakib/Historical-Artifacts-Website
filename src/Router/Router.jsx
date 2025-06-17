@@ -1,23 +1,23 @@
+import axios from "axios";
 import {
   createBrowserRouter,
 } from "react-router";
-import ErrorPage from "../pages/ErrorPage";
-import RootLayout from "../RootLayout/RootLayout";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import SignUp from "../pages/SignUp";
 import PrivetRoute from "../Authentication/PrivetRoute";
-import ContactSupport from "../pages/ContactSupport";
-import BrowseDocumentation from "../pages/BrowseDocumentation";
+import Loader from "../Component/Loader";
 import AboutSection from "../pages/About";
 import AddArtifact from "../pages/AddArtifact";
 import AllArtifacts from "../pages/AllArtifacts";
-import axios from "axios";
-import Loader from "../Component/Loader";
 import ArtifactsDetail from "../pages/ArtifactsDetail";
-import MyArtifacts from "../pages/MyArtifacts";
-import UpdateArtifacts from "../pages/UpdateArtifacts";
+import BrowseDocumentation from "../pages/BrowseDocumentation";
+import ContactSupport from "../pages/ContactSupport";
+import ErrorPage from "../pages/ErrorPage";
+import Home from "../pages/Home";
 import LikedArtifacts from "../pages/LikedArtifacts";
+import Login from "../pages/Login";
+import MyArtifacts from "../pages/MyArtifacts";
+import SignUp from "../pages/SignUp";
+import UpdateArtifacts from "../pages/UpdateArtifacts";
+import RootLayout from "../RootLayout/RootLayout";
 
 
 
@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/top-liked-artifacts"),
+        loader: () => fetch("https://historical-artifacts-server-three.vercel.app/top-liked-artifacts"),
         hydrateFallbackElement: <Loader></Loader>,
         Component: Home,
       },
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-artifacts/:email",
-        loader: ({params}) => axios(`http://localhost:3000/my-artifact/${params.email}`, {
+        loader: ({params}) => axios(`https://historical-artifacts-server-three.vercel.app/my-artifact/${params.email}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/liked-artifacts/:email",
-        loader: ({params}) => fetch(`http://localhost:3000/liked-artifacts/${params.email}`, {
+        loader: ({params}) => fetch(`https://historical-artifacts-server-three.vercel.app/liked-artifacts/${params.email}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -67,7 +67,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/update-artifact/:id",
-        loader: ({params}) => fetch(`http://localhost:3000/artifacts/${params.id}`, {
+        loader: ({params}) => fetch(`https://historical-artifacts-server-three.vercel.app/artifacts/${params.id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -79,13 +79,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/all-artifacts",
-        loader: () => axios("http://localhost:3000/artifacts"),
+        loader: () => axios("https://historical-artifacts-server-three.vercel.app/artifacts"),
         hydrateFallbackElement: <Loader></Loader>,
         Component: AllArtifacts,
       },
       {
         path: "/artifacts/:id",
-        loader: ({params}) => axios(`http://localhost:3000/artifact-details/${params.id}`, {
+        loader: ({params}) => axios(`https://historical-artifacts-server-three.vercel.app/artifact-details/${params.id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
