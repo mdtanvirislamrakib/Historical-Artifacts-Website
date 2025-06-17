@@ -1,14 +1,14 @@
 import axios from "axios"
 import { motion } from "framer-motion"
 import {
-    ArrowLeft,
-    Calendar,
-    Clock,
-    Heart,
-    History,
-    Mail,
-    MapPin,
-    User,
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Heart,
+  History,
+  Mail,
+  MapPin,
+  User,
 } from "lucide-react"
 import { use, useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
@@ -20,12 +20,15 @@ import Loader from "../Component/Loader"
 const ArtifactsDetail = () => {
   const { user } = use(AuthContext)
   const [loading, setLoading] = useState(true)
-  const [artifact, setArtifact] = useState([])
+  const [artifact, setArtifact] = useState(null)
+  const navigate = useNavigate()
 
-  const {id} = useParams()
+  const [isLiked, setIsLiked] = useState(artifact?.likedBy?.includes(user?.email));
+  const [likeCount, setLikeCount] = useState(artifact?.likedBy?.length);
+  const { id } = useParams()
 
   useEffect(() => {
-    const fetchDetails = async() => {
+    const fetchDetails = async () => {
       try {
         const responce = await axios(`https://historical-artifacts-server-three.vercel.app/artifact-details/${id}`, {
           headers: {
@@ -35,29 +38,29 @@ const ArtifactsDetail = () => {
 
         const data = responce.data
         setArtifact(data)
+        
+        setIsLiked(data?.likedBy?.includes(user?.email))
+        setLikeCount(data?.likedBy?.length || 0)
+        // user?.email
       }
-      catch(err) {
+      catch (err) {
         console.log(err);
       }
-      finally{
+      finally {
         setLoading(false)
       }
     }
     fetchDetails()
-  }, [id])
+  }, [id, user?.email])
 
-  // const artifactData = useLoaderData()
-  // const artifact = artifactData?.data
-  const navigate = useNavigate()
 
-  const [isLiked, setIsLiked] = useState(artifact?.likedBy?.includes(user?.email));
-  const [likeCount, setLikeCount] = useState(artifact?.likedBy?.length);
+
 
   useEffect(() => {
     setIsLiked(artifact?.likedBy?.includes(user?.email))
   }, [artifact?.likedBy, user])
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (artifact?.email === user?.email) {
       return Swal.fire({
         title: "You don't like your own post!",
@@ -66,22 +69,23 @@ const ArtifactsDetail = () => {
       });
     }
 
-    axios.patch(`https://historical-artifacts-server-three.vercel.app/like/${artifact?._id}`, {
+    await axios.patch(`https://historical-artifacts-server-three.vercel.app/like/${artifact?._id}`, {
       email: user?.email,
     }, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
-    .then(data => {
-      setIsLiked(data?.data?.liked)
-      setLikeCount(prev => data?.data?.liked ? prev + 1 : prev - 1)
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then(data => {
+        setIsLiked(data?.data?.liked)
+        setLikeCount(prev => !isLiked ? prev + 1 : prev - 1)
+      })
+      
+      .catch(err => {
+        console.log(err);
+      })
   }
-  if(loading) {
+  if (loading) {
     return <Loader></Loader>
   }
   if (!artifact) {
@@ -156,8 +160,8 @@ const ArtifactsDetail = () => {
           <motion.button
             onClick={handleLike}
             className={`p-3 rounded-xl backdrop-blur-sm border transition-all duration-300 ${isLiked
-                ? "bg-red-500/20 border-red-400/30 text-red-400"
-                : "bg-white/10 border-white/20 text-gray-400 hover:text-red-400 hover:bg-red-500/10"
+              ? "bg-red-500/20 border-red-400/30 text-red-400"
+              : "bg-white/10 border-white/20 text-gray-400 hover:text-red-400 hover:bg-red-500/10"
               }`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -194,7 +198,7 @@ const ArtifactsDetail = () => {
                     e.target.src = "/placeholder.svg?height=600&width=600"
                   }}
                 />
-                
+
                 {/* Like Count on Image */}
                 <div className="absolute bottom-4 left-4 flex items-center space-x-2 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-sm text-white">
                   <Heart className="h-4 w-4 text-red-400 fill-current" />
