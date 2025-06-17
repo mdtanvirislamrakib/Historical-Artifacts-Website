@@ -6,7 +6,6 @@ import Loader from '../Component/Loader';
 const PrivetRoute = ({ children }) => {
 
     const { user, loading } = use(AuthContext)
-    console.log(user, loading);
 
     if (loading) {
         return <Loader></Loader>

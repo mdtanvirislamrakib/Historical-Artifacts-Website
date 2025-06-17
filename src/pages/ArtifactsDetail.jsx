@@ -22,7 +22,6 @@ const ArtifactsDetail = () => {
   const [loading, setLoading] = useState(true)
   const [artifact, setArtifact] = useState([])
 
-  console.log(artifact);
   const {id} = useParams()
 
   useEffect(() => {
@@ -69,6 +68,10 @@ const ArtifactsDetail = () => {
 
     axios.patch(`https://historical-artifacts-server-three.vercel.app/like/${artifact?._id}`, {
       email: user?.email,
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
     })
     .then(data => {
       setIsLiked(data?.data?.liked)
