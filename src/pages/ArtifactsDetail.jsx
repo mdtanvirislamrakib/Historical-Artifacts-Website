@@ -12,15 +12,43 @@ import {
 } from "lucide-react"
 import { use, useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
-import { Link, useLoaderData, useNavigate } from "react-router"
+import { Link, useNavigate, useParams } from "react-router"
 import Swal from "sweetalert2"
 import { AuthContext } from "../Authentication/AuthProvider"
+import Loader from "../Component/Loader"
 
 const ArtifactsDetail = () => {
   const { user } = use(AuthContext)
+  const [loading, setLoading] = useState(true)
+  const [artifact, setArtifact] = useState([])
 
-  const artifactData = useLoaderData()
-  const artifact = artifactData?.data
+  console.log(artifact);
+  const {id} = useParams()
+
+  useEffect(() => {
+    const fetchDetails = async() => {
+      try {
+        const responce = await axios(`https://historical-artifacts-server-three.vercel.app/artifact-details/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+
+        const data = responce.data
+        setArtifact(data)
+      }
+      catch(err) {
+        console.log(err);
+      }
+      finally{
+        setLoading(false)
+      }
+    }
+    fetchDetails()
+  }, [id])
+
+  // const artifactData = useLoaderData()
+  // const artifact = artifactData?.data
   const navigate = useNavigate()
 
   const [isLiked, setIsLiked] = useState(artifact?.likedBy?.includes(user?.email));
@@ -50,7 +78,9 @@ const ArtifactsDetail = () => {
       console.log(err);
     })
   }
-
+  if(loading) {
+    return <Loader></Loader>
+  }
   if (!artifact) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">

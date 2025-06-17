@@ -85,12 +85,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/artifacts/:id",
-        loader: ({params}) => axios(`https://historical-artifacts-server-three.vercel.app/artifact-details/${params.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
-        }),
-        hydrateFallbackElement: <Loader></Loader>,
+        // loader: ({params}) => axios(`https://historical-artifacts-server-three.vercel.app/artifact-details/${params.id}`, {
+        //   headers: {
+        //     Authorization: `Bearer ${localStorage.getItem("token")}`
+        //   }
+        // }),
+        // hydrateFallbackElement: <Loader></Loader>,
         element: <PrivetRoute>
           <ArtifactsDetail></ArtifactsDetail>
         </PrivetRoute>
