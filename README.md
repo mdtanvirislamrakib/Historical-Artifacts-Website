@@ -1,4 +1,4 @@
-# 🏺 Historical Artifacts Tracker
+# 🏺 HistoriVault
 
 A full-stack MERN-based web application designed to preserve and showcase historical artifacts like the Rosetta Stone, the Antikythera Mechanism, and many more. Users can explore, like, and contribute their own historical findings, all within a sleek, interactive, and secure interface.
 
