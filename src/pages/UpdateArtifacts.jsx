@@ -159,7 +159,11 @@ const AddArtifact = () => {
         // newArtifacts.likedBy = [];
 
         // update artifacts data from database
-        axios.put(`https://historical-artifacts-server-three.vercel.app/artifacts/${updatedData?._id}`, newArtifacts)
+        axios.put(`https://historical-artifacts-server-three.vercel.app/artifacts/${updatedData?._id}`, newArtifacts, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+        })
             .then(data => {
                 if (data?.data?.modifiedCount) {
                     Swal.fire({
