@@ -1,16 +1,20 @@
+
 # 🏺 HistoriVault
 
-A full-stack MERN-based web application designed to preserve and showcase historical artifacts like the Rosetta Stone, the Antikythera Mechanism, and many more. Users can explore, like, and contribute their own historical findings, all within a sleek, interactive, and secure interface.
-
-## 🌐 Live Site
-
-👉 [Visit the Live Project](https://historical-artifacts.netlify.app) 
+A full-stack MERN-based web application designed to preserve and showcase historical artifacts like the **Rosetta Stone**, **Antikythera Mechanism**, and many more. Users can explore, like, and contribute their own historical findings, all within a sleek, interactive, and secure interface.
 
 ---
 
-## 🎯 Purpose
+## 🌐 Live Site
 
-The purpose of this project is to create a robust platform where history enthusiasts can explore, manage, and share historical artifacts. With built-in authentication and user interactivity, this project aims to provide a practical example of a fully functional CRUD-based MERN stack application.
+👉 **Frontend**: [https://historical-artifacts.netlify.app](https://historical-artifacts.netlify.app)  
+👉 **Backend (API)**: [https://histori-vault-server.vercel.app](https://histori-vault-server.vercel.app)
+
+---
+
+## 🎯 Project Purpose
+
+The goal of this project is to create a robust platform where history enthusiasts can explore, manage, and share historical artifacts. With built-in authentication, protected routes, and user interaction, it serves as a full-featured CRUD-based MERN stack application.
 
 ---
 
@@ -19,35 +23,35 @@ The purpose of this project is to create a robust platform where history enthusi
 ### 🔐 Authentication
 - Firebase Email/Password & Google Login
 - JWT token-based protected routes
-- Conditional Navbar rendering (Login / Profile Image with dropdown)
+- Conditional Navbar (Login / Profile Image Dropdown)
 
 ### 🏠 Home Page
-- Eye-catching banner/slider (Swiper)
+- Animated banner/slider (Swiper)
 - Featured artifacts based on like count
-- Extra meaningful sections with Framer Motion animation
+- Animated sections with Framer Motion
 
 ### 🧭 Navigation & Routing
-- Dynamic routing using `react-router`
-- Protected/private routes for:
+- React Router-based navigation
+- Protected routes for:
   - Add Artifact
   - My Artifacts
   - Liked Artifacts
   - Artifact Details
 
 ### 📃 Artifact Management (CRUD)
-- **Create**: Add new artifacts with detailed information
-- **Read**: View artifact details
-- **Update**: Modify your own artifacts via form or modal
-- **Delete**: Remove your own artifacts (with confirmation)
+- **Create**: Submit new artifacts with detailed info
+- **Read**: View all artifacts and specific details
+- **Update**: Edit your own artifacts
+- **Delete**: Delete your own artifacts (with confirmation prompt)
 
 ### ❤️ Like Functionality
-- Toggle Like/Dislike button with real-time UI and DB updates
-- Like count shown on artifact cards and details
+- Like/Dislike toggle with real-time UI & DB updates
+- Like count display
 
 ### 🔍 Search Functionality
-- Search artifacts by name on the All Artifacts Page
+- Search artifacts by name on All Artifacts page
 
-### 📂 Pages Overview
+### 📂 Pages
 - Home
 - All Artifacts
 - Add Artifact
@@ -55,52 +59,102 @@ The purpose of this project is to create a robust platform where history enthusi
 - My Artifacts
 - Liked Artifacts
 - Login / Register
-- 404 Not Found
+- 404 Page Not Found
 
 ### 🧠 Other Features
-- Toast/SweetAlert notifications for all CRUD operations
-- Spinner during loading states
-- Dynamic `document.title` for every page
-- Error handling for invalid routes and empty states
+- Toast/SweetAlert2 notifications
+- Spinners on data loading
+- Dynamic page titles (`react-helmet-async`)
+- Error handling for invalid states
 
 ---
 
-## 🧩 NPM Packages Used
+## 🛠 Technologies Used
 
-| Package Name            | Purpose |
-|-------------------------|---------|
-| `axios`                 | HTTP requests to backend |
-| `firebase`              | Authentication (Email & Google) |
-| `framer-motion`         | Animations |
-| `lottie-react` / `react-lottie` | Animated illustrations |
-| `lucide-react`          | Modern icons |
-| `react`, `react-dom`    | Core React library |
-| `react-helmet-async`    | Dynamic document titles |
-| `react-icons`           | Icon pack |
-| `react-loader-spinner`  | Loading spinners |
-| `react-router`          | Routing |
-| `sweetalert2`           | Pop-up alerts |
-| `swiper`                | Sliders/Carousel |
-| `tailwindcss`           | Utility-first CSS framework |
-| `typewriter-effect`     | Typing animations |
-
----
-
-## 🛠 Tech Stack
-
+### 🔧 Tech Stack
 - **Frontend**: React.js, Tailwind CSS, Framer Motion, Firebase Auth
-- **Backend**: Express.js, MongoDB, JWT Auth (Optional Firebase or Custom)
-- **Database**: MongoDB Atlas
+- **Backend**: Express.js, Node.js, MongoDB Atlas, JWT Auth
 - **Deployment**: Netlify (Frontend), Vercel (Backend)
 
+### 📦 NPM Packages
+
+| Package                | Purpose                          |
+|------------------------|----------------------------------|
+| `axios`                | API communication                |
+| `firebase`             | User authentication              |
+| `framer-motion`        | Animations                       |
+| `lottie-react`         | Lottie animations                |
+| `lucide-react`         | Modern icons                     |
+| `react`, `react-dom`   | React base packages              |
+| `react-helmet-async`   | Dynamic page titles              |
+| `react-icons`          | Icon support                     |
+| `react-loader-spinner` | Loading indicators               |
+| `react-router`         | Routing                          |
+| `sweetalert2`          | Pop-up notifications             |
+| `swiper`               | Slider/banner                    |
+| `tailwindcss`          | Utility CSS                      |
+| `typewriter-effect`    | Typing animation for headings    |
+
 ---
 
+## 💻 প্রজেক্টটি লোকাল মেশিনে কীভাবে রান করবেন
+
+এই প্রজেক্টটি আপনার লোকাল মেশিনে রান করার জন্য নিচের ধাপগুলো অনুসরণ করুন:
+
+### 🔽 Step 1: রেপোজিটরি ক্লোন করুন
+
+```bash
+git clone https://github.com/yourusername/historivault.git
+```
+
+### 📂 Step 2: ফ্রন্টএন্ড সেটআপ
+
+```bash
+cd historivault/client
+npm install
+```
+
+### 🧪 Step 3: ব্যাকএন্ড সেটআপ
+
+```bash
+cd ../server
+npm install
+```
+
+### 🔐 Step 4: Environment Variables তৈরি করুন
+
+**Frontend (.env):**
+```
+VITE_API_URL=https://your-backend-url.com
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+...other Firebase credentials...
+```
+
+**Backend (.env):**
+```
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
+### ▶️ Step 5: প্রজেক্ট রান করুন
+
+**Frontend:**
+```bash
+npm run dev
+```
+
+**Backend:**
+```bash
+npm run start
+```
 
 ---
 
 ## 🙌 Acknowledgements
 
-This project was developed as a full-stack MERN application with the goal of fulfilling all challenge requirements, including protected routing, user-specific data, animations, and responsive design.
+This project was developed as a full-stack MERN assignment for demonstrating core concepts like protected routes, CRUD operations, user management, and animation-rich frontend design.
 
 ---
 
@@ -108,9 +162,9 @@ This project was developed as a full-stack MERN application with the goal of ful
 
 **MD. Tanvir Islam Rakib**  
 BGIFT Institute of Science & Technology  
-📧 Email: mdtanvirislamrakib7@gmail.com *(replace with your contact)*
+📧 Email: mdtanvirislamrakib7@gmail.com  
+🌐 Portfolio: [rakib-dev.web.app](https://rakib-dev.web.app)
 
 ---
 
-> ⭐ Don't forget to give this project a star if you liked it!
-
+> ⭐ If you found this project helpful or inspiring, please consider starring the repository!
