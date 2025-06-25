@@ -8,7 +8,7 @@ A full-stack MERN-based web application designed to preserve and showcase histor
 ## 🌐 Live Site
 
 👉 **Frontend**: [https://historical-artifacts.netlify.app](https://historical-artifacts.netlify.app)  
-👉 **Backend (API)**: [https://histori-vault-server.vercel.app](https://histori-vault-server.vercel.app)
+👉 **Backend (API)**: [https://historical-artifacts-server-three.vercel.app/](https://historical-artifacts-server-three.vercel.app/)
 
 ---
 
@@ -163,7 +163,6 @@ This project was developed as a full-stack MERN assignment for demonstrating cor
 **MD. Tanvir Islam Rakib**  
 BGIFT Institute of Science & Technology  
 📧 Email: mdtanvirislamrakib7@gmail.com  
-🌐 Portfolio: [rakib-dev.web.app](https://rakib-dev.web.app)
 
 ---
 
