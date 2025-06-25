@@ -147,7 +147,7 @@ npm run dev
 
 **Backend:**
 ```bash
-npm run start
+nodemon index.js
 ```
 
 ---
