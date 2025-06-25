@@ -9,6 +9,9 @@ A full-stack MERN-based web application designed to preserve and showcase histor
 
 👉 **Frontend**: [https://historical-artifacts.netlify.app](https://historical-artifacts.netlify.app)  
 👉 **Backend (API)**: [https://historical-artifacts-server-three.vercel.app/](https://historical-artifacts-server-three.vercel.app/)
+👉 **Backend Code**: [https://github.com/mdtanvirislamrakib/Historical-Artifacts-Server-Code](https://github.com/mdtanvirislamrakib/Historical-Artifacts-Server-Code)
+
+
 
 ---
 
@@ -104,7 +107,7 @@ The goal of this project is to create a robust platform where history enthusiast
 ### 🔽 Step 1: রেপোজিটরি ক্লোন করুন
 
 ```bash
-git clone https://github.com/yourusername/historivault.git
+git clone https://github.com/mdtanvirislamrakib/Historical-Artifacts-Website?tab=readme-ov-file
 ```
 
 ### 📂 Step 2: ফ্রন্টএন্ড সেটআপ
