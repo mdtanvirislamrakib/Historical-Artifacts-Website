@@ -7,7 +7,7 @@ A full-stack MERN-based web application designed to preserve and showcase histor
 
 ## 🌐 Live Site
 
-👉 **Frontend**: [https://historical-artifacts.netlify.app](https://historical-artifacts.netlify.app)  
+👉 **Live Link**: [https://historical-artifacts.netlify.app](https://historical-artifacts.netlify.app)  
 👉 **Backend (API)**: [https://historical-artifacts-server-three.vercel.app/](https://historical-artifacts-server-three.vercel.app/)   
 👉 **Backend Code**: [https://github.com/mdtanvirislamrakib/Historical-Artifacts-Server-Code](https://github.com/mdtanvirislamrakib/Historical-Artifacts-Server-Code)
 
