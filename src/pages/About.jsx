@@ -25,10 +25,23 @@ import {
 import { FaDownLeftAndUpRightToCenter } from "react-icons/fa6"
 import { Helmet } from "react-helmet-async"
 
+import drSarahImage from "../assets/sara-mitchell.jpg"
+import profJemsImage from "../assets/prof-jems.jpg"
+import drMariaImage from "../assets/maria.jpeg"
+import drAhmedImage from "../assets/ahmed.jpeg"
+import { useNavigate } from "react-router"
+
 const AboutSection = () => {
   const [activeTeamMember, setActiveTeamMember] = useState(0)
   const [activeValue, setActiveValue] = useState(0)
+  const navigate = useNavigate();
 
+  const navigateAllArtifactPage = () => {
+    navigate("/all-artifacts")
+  }
+  const navigateToContactPage = () => {
+    navigate("/contact-support")
+  }
   const stats = [
     { number: "50K+", label: "Artifacts Documented", icon: FaHistory },
     { number: "200+", label: "Museums Partnered", icon: FaGlobe },
@@ -80,7 +93,7 @@ const AboutSection = () => {
       name: "Dr. Sarah Mitchell",
       role: "Chief Archaeologist",
       bio: "Leading expert in ancient civilizations with 20+ years of field experience across Egypt, Greece, and Rome.",
-      image: "/placeholder.svg?height=300&width=300",
+      image: drSarahImage,
       social: {
         linkedin: "#",
         twitter: "#",
@@ -91,7 +104,7 @@ const AboutSection = () => {
       name: "Prof. James Chen",
       role: "Head of Digital Preservation",
       bio: "Pioneer in digital archaeology and 3D artifact modeling, published author of 50+ research papers.",
-      image: "/placeholder.svg?height=300&width=300",
+      image: profJemsImage,
       social: {
         linkedin: "#",
         github: "#",
@@ -102,7 +115,7 @@ const AboutSection = () => {
       name: "Dr. Maria Rodriguez",
       role: "Cultural Heritage Specialist",
       bio: "Expert in Latin American archaeology and indigenous artifact preservation with UNESCO experience.",
-      image: "/placeholder.svg?height=300&width=300",
+      image: drMariaImage,
       social: {
         linkedin: "#",
         twitter: "#",
@@ -113,7 +126,7 @@ const AboutSection = () => {
       name: "Dr. Ahmed Hassan",
       role: "Authentication Director",
       bio: "Specialist in artifact authentication and dating techniques, former curator at the British Museum.",
-      image: "/placeholder.svg?height=300&width=300",
+      image: drAhmedImage,
       social: {
         linkedin: "#",
         twitter: "#",
@@ -509,14 +522,16 @@ const AboutSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-lg hover:from-amber-400 hover:to-amber-500 transition-all duration-300 shadow-lg shadow-amber-600/30"
+                onClick={navigateAllArtifactPage}
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-lg hover:from-amber-400 hover:to-amber-500 transition-all duration-300 shadow-lg shadow-amber-600/30 cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Start Exploring
               </motion.button>
               <motion.button
-                className="px-8 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-lg hover:bg-white/20 transition-all duration-300"
+                onClick={navigateToContactPage}
+                className="px-8 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-bold text-lg hover:bg-white/20 transition-all duration-300 cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

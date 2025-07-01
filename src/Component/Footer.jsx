@@ -1,13 +1,14 @@
 import React from "react";
-import { Mail, MapPin, Twitter, Facebook, Instagram, Linkedin, Github, } from "lucide-react";
+import { Mail, MapPin, Facebook, Instagram, Linkedin, Github, } from "lucide-react";
+import { RiTwitterXLine } from "react-icons/ri";
 import logo from "../assets/logo.png"
 import { Link, NavLink } from "react-router";
 
 const socialLinks = [
   {
-    icon: <Twitter className="h-5 w-5" />,
+    icon: <RiTwitterXLine className="h-5 w-5" />,
     name: "Twitter",
-    url: "https://twitter.com/",
+    url: "https://x.com/",
   },
   {
     icon: <Facebook className="h-5 w-5" />,
@@ -81,7 +82,10 @@ const Footer = () => {
                 <NavLink
                   key={link.name}
                   to={link.href}
-                  className="hover:text-amber-400 transition-colors duration-200 text-sm"
+                  className={({ isActive }) =>
+                    `hover:text-amber-400 transition-colors duration-200 text-sm ${isActive ? 'text-amber-400' : ''
+                    }`
+                  }
                 >
                   {link.name}
                 </NavLink>
